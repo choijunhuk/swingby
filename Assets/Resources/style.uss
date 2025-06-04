@@ -1,0 +1,42 @@
+.input-panel {
+    background-color: #2a2a2a;
+    color: #000000;
+    padding: 10px;
+    border-right: 2px solid #444444;
+}
+
+.big-button {
+    width: 100%;
+    height: 40px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.big-button:hover {
+    background-color: #45a049;
+}
+
+.result-area {
+    font-size: 18px;
+    color: #00ff00;
+    margin-top: 10px;
+    text-align: center;
+}
+
+FloatField, DropdownField {
+    margin: 5px 0;
+    width: 100%;
+}
+
+Label {
+    color: #ffffff;
+}
+
+#logWindow .logLabel {
+    font-size: 12px;
+    white-space: pre;
+}

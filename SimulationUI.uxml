@@ -1,0 +1,18 @@
+<ui:ScrollView class="panel" xmlns:ui="UnityEngine.UIElements" style="width:320px; height:600px;">
+  <ui:FloatField   name="planetMass" label="행성 질량 [kg]" value="5.972e24"/>
+  <ui:Vector2Field name="planetPos"  label="행성 위치 (X,Y) [km]" value="(0,0)"/>
+
+  <ui:FloatField   name="shipMass"   label="우주선 질량 [kg]" value="2e4"/>
+  <ui:Vector2Field name="shipPos"    label="우주선 위치 (X,Y) [km]" value="(0,15000)"/>
+
+  <ui:Slider        name="speed"  low-value="0" high-value="30"  label="속도 (km/s)"    value="10"/>
+  <ui:Slider        name="angle"  low-value="-180" high-value="180" label="방향 각도 (°)" value="0"/>
+  <ui:Slider        name="rPeri"  low-value="5000" high-value="50000" label="근접 거리 rₚ (km)" value="10000"/>
+
+  <ui:DropdownField name="camMode" choices="행성;우주선;자동" label="카메라 모드" index="2"/>
+  <ui:FloatField    name="relWidth" label="스케일 비율 (폭 기준)" value="0.05"/>
+
+  <ui:Button name="startBtn" text="시작"/>
+  <ui:Label  name="log"/>
+  <ui:Label  name="result"/>
+</ui:ScrollView>
