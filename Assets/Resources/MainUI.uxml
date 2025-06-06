@@ -4,41 +4,45 @@
 
   <ui:ScrollView class="input-panel" style="position:absolute; left:0; top:0; right:75%; bottom:0; overflow-y:auto;">
     <!-- 행성 파라미터 -->
-    <ui:FloatField name="planetMass" label="행성 질량 [kg]" value="5.972e24"/>
-    <ui:FloatField name="planetX" label="행성 X [km]" value="1"/>
-    <ui:FloatField name="planetY" label="행성 Y [km]" value="0"/>
-    <ui:FloatField name="planetZ" label="행성 Z [km]" value="0"/>
+    <ui:FloatField name="planetMass" label="행성 질량 [kg]" value="100"/>
+    <ui:FloatField name="planetX"    label="행성 X [km]"   value="0"/>
+    <ui:FloatField name="planetY"    label="행성 Y [km]"   value="0"/>
+    <ui:FloatField name="planetZ"    label="행성 Z [km]"   value="0"/>
 
     <!-- 우주선 파라미터 -->
-    <ui:FloatField name="shipMass" label="우주선 질량 [kg]" value="1e4"/>
-    <ui:FloatField name="shipX" label="우주선 X [km]" value="100"/>
-    <ui:FloatField name="shipY" label="우주선 Y [km]" value="0"/>
-    <ui:FloatField name="shipZ" label="우주선 Z [km]" value="0"/>
-    <ui:FloatField name="shipRadius" label="우주선 반지름 [km]" value="0.01"/>
+    <ui:FloatField name="shipMass"     label="우주선 질량 [kg]" value="1e4"/>
+    <ui:FloatField name="shipX"        label="우주선 X [km]"   value="-80"/>
+    <ui:FloatField name="shipY"        label="우주선 Y [km]"   value="0"/>
+    <ui:FloatField name="shipZ"        label="우주선 Z [km]"   value="0"/>
+    <ui:FloatField name="shipRadius"   label="우주선 반지름 [km]" value="0.01"/>
 
     <!-- 속도 파라미터 -->
-    <ui:FloatField name="velX" label="속도 X [km/s]" value="0"/>
-    <ui:FloatField name="velY" label="속도 Y [km/s]" value="5"/>
+    <ui:FloatField name="velX" label="속도 X [km/s]" value="1"/>
+    <ui:FloatField name="velY" label="속도 Y [km/s]" value="1"/>
     <ui:FloatField name="velZ" label="속도 Z [km/s]" value="0"/>
 
     <!-- 행성 속도 파라미터 -->
     <ui:FloatField name="planetVelX" label="행성 속도 X [km/s]" value="0"/>
-    <ui:FloatField name="planetVelY" label="행성 속도 Y [km/s]" value="5"/>
+    <ui:FloatField name="planetVelY" label="행성 속도 Y [km/s]" value="0"/>
     <ui:FloatField name="planetVelZ" label="행성 속도 Z [km/s]" value="0"/>
 
     <!-- 물리 상수 및 설정 -->
-    <ui:FloatField name="gravConst" value="6.674e-11" label="중력 상수"/>
-    <ui:FloatField name="timeScale" value="10" label="시간 배율"/>
-    <ui:FloatField name="relWidth" value="10.0" label="궤적 굵기 비율"/>
+    <ui:FloatField name="gravConst" value="1" label="중력 상수"/>
+    <ui:FloatField name="timeScale" value="1" label="시간 배율"/>
+    <ui:FloatField name="relWidth"  value="1" label="궤적 굵기 비율"/>
 
-    <!-- ★ 새로운 입력란: 단위 스케일 -->
-    <ui:FloatField name="unitScale" label="단위 스케일 (km → Unity)" value="100"/>
+    <!-- ★ 새로운 입력란 1: 단위 스케일 -->
+    <ui:FloatField name="unitScale" label="단위 스케일 (km → Unity)" value="1"/>
+
+    <!-- ★ 새로운 입력란 2: km→m 를 적용할지 여부 토글 -->
+    <ui:Toggle name="applyKm" label="Apply km→m (×1e-9)?" value="false"/>
 
     <ui:DropdownField name="planetSizeMode" label="행성 크기 모드" choices="점질량,유한 크기" index="0"/>
-    <ui:FloatField name="planetRadius" label="행성 반지름 [km]" value="0"/>
-    <ui:DropdownField name="simMethod" label="시뮬레이션 방식" choices="이론 해석,수치 미분" index="0"/>
-    <ui:DropdownField name="camMode" label="카메라 모드" choices="우주선 기준,행성 기준,오버뷰" index="0"/>
+    <ui:FloatField name="planetRadius"      label="행성 반지름 [km]" value="0"/>
+    <!-- 시뮬레이션 방식에 RK4와 오일러를 추가 -->
+    <ui:DropdownField name="simMethod" label="시뮬레이션 방식" choices="이론 해석,RK4,오일러" index="0"/>
+    <ui:DropdownField name="camMode"   label="카메라 모드"     choices="우주선 기준,행성 기준,오버뷰" index="0"/>
     <ui:Button name="startBtn" text="시작" class="big-button"/>
-    <ui:Label name="result" text="Δv = 0.000 km/s" class="result-area"/>
+    <ui:Label  name="result" text="Δv = 0.000 km/s" class="result-area"/>
   </ui:ScrollView>
 </ui:UXML>

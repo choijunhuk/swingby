@@ -3,39 +3,39 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class AutoFramer : MonoBehaviour
 {
+    [Header("Simulation Manager")]
     public SimulationManager sim;
-    public Transform target;
+
+    [Header("Targets")]
+    public Transform target;    // 우주선(ShipTransform)을 할당
+
+    [Header("FOV Settings")]
     [Range(1f, 179f)]
-    [Tooltip("Inspector에서 실시간 조정할 FOV (°}")]
+    [Tooltip("Inspector에서 실시간 조정할 FOV (°)")]
     public float referenceFOV = 60f;
-    public float minFOV = 1f, maxFOV = 179f;
-    public Vector3 offsetBase = new Vector3(0f, 0f, -20f);
+    public float minFOV = 1f;
+    public float maxFOV = 179f;
 
     private Camera cam;
 
-    void Start()
+    void Awake()
     {
         cam = GetComponent<Camera>();
-        if (cam == null) Debug.LogError("[AutoFramer] Camera 컴포넌트를 찾을 수 없습니다!");
-        cam.orthographic = false;
+        if (cam == null)
+            Debug.LogError("[AutoFramer] Camera 컴포넌트를 찾을 수 없습니다!");
+
+        // 기본적으로 비활성화해 두고, UIManager가 켜줌
+        enabled = false;
+
+        cam.orthographic  = false;
         cam.nearClipPlane = 0.0001f;
-        cam.farClipPlane = 1e9f;
-        cam.eventMask = 0;
+        cam.farClipPlane  = 1e12f;
+        cam.eventMask     = 0;
     }
 
     void LateUpdate()
     {
-        if (sim == null || !sim.IsRunning || target == null) return;
-
-        cam.fieldOfView = referenceFOV; // 클램핑 간소화
-        Vector3 scale = target.localScale;
-        // 요소별 곱셈으로 오프셋 계산
-        Vector3 offset = new Vector3(
-            offsetBase.x * scale.x,
-            offsetBase.y * scale.y,
-            offsetBase.z * scale.z
-        );
-        cam.transform.position = target.position + offset;
-        cam.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        // 단순히 FOV만 제어 (위치/회전은 UIManager에서 처리)
+        cam.fieldOfView = Mathf.Clamp(referenceFOV, minFOV, maxFOV);
     }
 }

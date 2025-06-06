@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "My project - 복사본 (3) - 복사본.sln"
+    "dotnet.defaultSolution": "swingby.sln"
 }
