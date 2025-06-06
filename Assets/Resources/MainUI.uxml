@@ -10,11 +10,10 @@
     <ui:FloatField name="planetZ"    label="행성 Z [km]"   value="0"/>
 
     <!-- 우주선 파라미터 -->
-    <ui:FloatField name="shipMass"     label="우주선 질량 [kg]" value="1e4"/>
+    <!-- (shipMass, shipRadius 입력란은 이미 제거된 상태) -->
     <ui:FloatField name="shipX"        label="우주선 X [km]"   value="-80"/>
     <ui:FloatField name="shipY"        label="우주선 Y [km]"   value="0"/>
     <ui:FloatField name="shipZ"        label="우주선 Z [km]"   value="0"/>
-    <ui:FloatField name="shipRadius"   label="우주선 반지름 [km]" value="0.01"/>
 
     <!-- 속도 파라미터 -->
     <ui:FloatField name="velX" label="속도 X [km/s]" value="1"/>
@@ -31,18 +30,23 @@
     <ui:FloatField name="timeScale" value="1" label="시간 배율"/>
     <ui:FloatField name="relWidth"  value="1" label="궤적 굵기 비율"/>
 
-    <!-- ★ 새로운 입력란 1: 단위 스케일 -->
+    <!-- 단위 스케일 -->
     <ui:FloatField name="unitScale" label="단위 스케일 (km → Unity)" value="1"/>
 
-    <!-- ★ 새로운 입력란 2: km→m 를 적용할지 여부 토글 -->
+    <!-- km→m 토글 -->
     <ui:Toggle name="applyKm" label="Apply km→m (×1e-9)?" value="false"/>
 
-    <ui:DropdownField name="planetSizeMode" label="행성 크기 모드" choices="점질량,유한 크기" index="0"/>
-    <ui:FloatField name="planetRadius"      label="행성 반지름 [km]" value="0"/>
-    <!-- 시뮬레이션 방식에 RK4와 오일러를 추가 -->
+    <!-- 행성 크기 모드(항상 점질량이므로 제거) -->
+    <!-- <ui:DropdownField name="planetSizeMode" ... /> 삭제 -->
+
+    <!-- 행성 반지름(점질량 모드만 쓰므로 불필요) 삭제 -->
+
+    <!-- 시뮬레이션 방식 -->
     <ui:DropdownField name="simMethod" label="시뮬레이션 방식" choices="이론 해석,RK4,오일러" index="0"/>
-    <ui:DropdownField name="camMode"   label="카메라 모드"     choices="우주선 기준,행성 기준,오버뷰" index="0"/>
+
+    <!-- 카메라 모드: Overview 옵션 제거 -->
+    <ui:DropdownField name="camMode" label="카메라 모드" choices="우주선 기준,행성 기준" index="0"/>
+
     <ui:Button name="startBtn" text="시작" class="big-button"/>
-    <ui:Label  name="result" text="Δv = 0.000 km/s" class="result-area"/>
   </ui:ScrollView>
 </ui:UXML>

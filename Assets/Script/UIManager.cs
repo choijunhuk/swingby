@@ -82,6 +82,21 @@ public class UIManager : MonoBehaviour
         Debug.Log("[UIManager] OnEnable: UI 요소 바인딩 완료");
     }
 
+    void Update()
+    {
+        // =====================================
+        // ESC 키 입력 시 애플리케이션 종료 처리
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+        // =====================================
+    }
+
     private void OnStart()
     {
         // (0) 혹시 남아 있는 FreeCameraController, AutoFramer, CameraManager가 켜져 있으면 전부 비활성화
@@ -155,6 +170,7 @@ public class UIManager : MonoBehaviour
     {
         var r = uiDocument.rootVisualElement;
 
+        // — 행성 파라미터 —
         sim.planetMass = r.Q<FloatField>("planetMass").value;
         sim.planetPos = new Vector3(
             r.Q<FloatField>("planetX").value,
@@ -167,7 +183,11 @@ public class UIManager : MonoBehaviour
             r.Q<FloatField>("planetVelZ").value
         );
 
-        sim.shipMass = r.Q<FloatField>("shipMass").value;
+        // 항상 점질량 모드로 고정
+        sim.isPointMass = true;
+        // (planetRadius는 점질량일 때 사용되지 않으므로 더 이상 세팅하지 않습니다.)
+
+        // — 우주선 파라미터 —
         sim.shipPos = new Vector3(
             r.Q<FloatField>("shipX").value,
             r.Q<FloatField>("shipY").value,
@@ -178,8 +198,8 @@ public class UIManager : MonoBehaviour
             r.Q<FloatField>("velY").value,
             r.Q<FloatField>("velZ").value
         );
-        sim.shipRadius = Mathf.Max(r.Q<FloatField>("shipRadius").value, 0.01f);
 
+        // — 물리 상수 & 기타 —
         sim.gravConst = r.Q<FloatField>("gravConst").value;
         sim.timeScale = r.Q<FloatField>("timeScale").value;
         sim.trajWidth = r.Q<FloatField>("relWidth").value;
@@ -187,10 +207,8 @@ public class UIManager : MonoBehaviour
 
         sim.simulationMethod = r.Q<DropdownField>("simMethod").index;
         sim.camMode = r.Q<DropdownField>("camMode").index;
-        sim.isPointMass = (r.Q<DropdownField>("planetSizeMode").index == 0);
-        sim.planetRadius = r.Q<FloatField>("planetRadius").value;
 
-        Debug.Log($"[UIManager] ReadAndApplyInputs: sim.camMode = {sim.camMode}");
+        Debug.Log($"[UIManager] ReadAndApplyInputs: sim.camMode = {sim.camMode}, 점질량 모드 고정");
     }
 
     private void SwitchCamComponents()
@@ -234,7 +252,6 @@ public class UIManager : MonoBehaviour
             {
                 Vector3 shipPos = sim.ShipTransform.position;
                 cam.transform.position = shipPos + new Vector3(0f, 0f, -10f);
-                // 회전을 (0,180,0)으로 고정
                 cam.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
         }
@@ -245,7 +262,6 @@ public class UIManager : MonoBehaviour
             {
                 Vector3 planetPos = sim.PlanetTransform.position;
                 cam.transform.position = planetPos + new Vector3(0f, 0f, 10f);
-                // 회전을 (0,180,0)으로 고정
                 cam.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
         }
